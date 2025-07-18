@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DSE Data Scraper</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script type="module" src="https://unpkg.com/cally"></script>
+  </head>
+  <body>
+    <h1 class="text-3xl text-center m-4">DSE Data Scraper</h1>
+    <p class="text-center m-4">Download DSE Data for using with AmiBroker.</p>
+
+    <div class="flex flex-col items-center gap-4">
+      <div>
+        <button
+          popovertarget="cally-popover1"
+          class="input input-border"
+          id="cally1"
+          style="anchor-name: --cally1"
+        >
+          Pick Start Date
+        </button>
+        <div
+          popover
+          id="cally-popover1"
+          class="dropdown bg-base-100 rounded-box shadow-lg"
+          style="position-anchor: --cally1"
+        >
+          <calendar-date
+            class="cally"
+            onchange="document.getElementById('cally1').innerText = this.value"
+          >
+            <svg
+              aria-label="Previous"
+              class="fill-current size-4"
+              slot="previous"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+            </svg>
+            <svg
+              aria-label="Next"
+              class="fill-current size-4"
+              slot="next"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+            </svg>
+            <calendar-month></calendar-month>
+          </calendar-date>
+        </div>
+      </div>
+
+      <div>
+        <button
+          popovertarget="cally-popover2"
+          class="input input-border"
+          id="cally2"
+          style="anchor-name: --cally2"
+        >
+          Pick Start Date
+        </button>
+        <div
+          popover
+          id="cally-popover2"
+          class="dropdown bg-base-100 rounded-box shadow-lg"
+          style="position-anchor: --cally2"
+        >
+          <calendar-date
+            class="cally"
+            onchange="document.getElementById('cally2').innerText = this.value"
+          >
+            <svg
+              aria-label="Previous"
+              class="fill-current size-4"
+              slot="previous"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+            </svg>
+            <svg
+              aria-label="Next"
+              class="fill-current size-4"
+              slot="next"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+            </svg>
+            <calendar-month></calendar-month>
+          </calendar-date>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="scrapeButton" onclick="scrape();">
+        Scrape Data
+      </button>
+      <p id="status"></p>
+    </div>
+
+    <footer>
+      <div class="text-center mt-4">
+        <p>
+          Made with ❤️ by
+          <a
+            href="https://fluentmoheshwar.pages.dev"
+            class="link link-primary"
+            target="_blank"
+            >Moheshwar Amarnath Biswas</a
+          >
+        </p>
+        <p>
+          Source code available on
+          <a
+            href="https://github.com/fluentmoheshwar/dse-scraper"
+            class="link link-primary"
+            target="_blank"
+            >GitHub</a
+          >
+        </p>
+        <p>
+          Latest data is not guaranteed due to DSE's limitations and technical
+          difficulties, please check the
+          <a
+            href="https://www.dsebd.org/"
+            class="link link-primary"
+            target="_blank"
+            >DSE website</a
+          >
+          for the most accurate information.
+        </p>
+        <p>
+          We're not responsible for any inaccurate data and loses caused by it.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const scrape = async () => {
+        const startDate = document.getElementById("cally1").innerText;
+        const endDate = document.getElementById("cally2").innerText;
+        console.log("Start Date:", startDate);
+        console.log("End Date:", endDate);
+        const status = document.getElementById("status");
+        status.innerText = "Scraping data...";
+        const response = await fetch("/api", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "text/csv",
+          },
+          body: JSON.stringify({ startDate, endDate }),
+        });
+        if (response.ok) {
+          status.innerText = "Data scraped successfully! Downloading...";
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "dse_data.csv"; // you can customize this filename
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        } else {
+          status.innerText = "Failed to scrape data. Please try again.";
+        }
+      };
+    </script>
+  </body>
+</html>
