@@ -1,16 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DSE Data Scraper</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@5"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script type="module" src="https://unpkg.com/cally"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="./main.js"></script>
   </head>
   <body>
     <h1 class="text-3xl text-center m-4">DSE Data Scraper</h1>
@@ -100,7 +95,7 @@
           </calendar-date>
         </div>
       </div>
-      <button class="btn btn-primary" id="scrapeButton" onclick="scrape();">
+      <button class="btn btn-primary" id="scrapeButton" onclick="scrape()">
         Scrape Data
       </button>
       <p id="status"></p>
@@ -111,7 +106,7 @@
         <p>
           Made with ❤️ by
           <a
-            href="https://fluentmoheshwar.pages.dev"
+            href="https://moheshwar.com"
             class="link link-primary"
             target="_blank"
             >Moheshwar Amarnath Biswas</a
@@ -142,38 +137,5 @@
         </p>
       </div>
     </footer>
-
-    <script>
-      const scrape = async () => {
-        const startDate = document.getElementById("cally1").innerText;
-        const endDate = document.getElementById("cally2").innerText;
-        console.log("Start Date:", startDate);
-        console.log("End Date:", endDate);
-        const status = document.getElementById("status");
-        status.innerText = "Scraping data...";
-        const response = await fetch("/api", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "text/csv",
-          },
-          body: JSON.stringify({ startDate, endDate }),
-        });
-        if (response.ok) {
-          status.innerText = "Data scraped successfully! Downloading...";
-          const blob = await response.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "dse_data.csv"; // you can customize this filename
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        } else {
-          status.innerText = "Failed to scrape data. Please try again.";
-        }
-      };
-    </script>
   </body>
 </html>
