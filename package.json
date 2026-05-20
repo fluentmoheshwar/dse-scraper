@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "bun-plugin-tailwind": "^0.1.2",
-    "daisyui": "^5.5.19",
+    "daisyui": "^5.5.20",
     "tailwindcss": "^4.2.2"
   }
 }
