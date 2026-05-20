@@ -37,4 +37,4 @@ jobs:
         run: git fetch --unshallow
 
       - name: Pushes to Codeberg
-        run: git pull codeberg main && git push codeberg
+        run: git push codeberg --force
