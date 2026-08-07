@@ -10,7 +10,7 @@
       },
       "devDependencies": {
         "bun-plugin-tailwind": "^0.1.2",
-        "daisyui": "^5.6.13",
+        "daisyui": "^5.7.15",
         "tailwindcss": "^4.3.2",
       },
     },
@@ -58,7 +58,7 @@
 
     "css-what": ["css-what@6.2.2", "", {}, "sha512-u/O3vwbptzhMs3L1fQE82ZSLHQQfto5gyZzwteVIEyeaY5Fc7R4dapF/BvRoSYFeqfBk4m0V1Vafq5Pjv25wvA=="],
 
-    "daisyui": ["daisyui@5.6.13", "", {}, "sha512-0UHyNG3TzF7pDIbPcWyLKQfgtGhJcIq2x26jwsDKp7ZhL0GwaqIMZ12+TWfp8p+mE4NNc29SJk63hEXTz3MQkg=="],
+    "daisyui": ["daisyui@5.7.15", "", {}, "sha512-62W6wiH6AhFKJ2ZcpJVcuPGQXbIgwq8BZZx78iJ3/T8lqrdY+UpQlYWb4IQQQXZ81NMwyX+CKS2+8HaTOE3ctA=="],
 
     "dom-serializer": ["dom-serializer@2.0.0", "", { "dependencies": { "domelementtype": "^2.3.0", "domhandler": "^5.0.2", "entities": "^4.2.0" } }, "sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg=="],
 
